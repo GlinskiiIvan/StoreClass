@@ -109,16 +109,19 @@ namespace StoreClass
                     Int32.Parse(textBox_NumberEmployees.Text), Int32.Parse(textBox_NumberParkingSpaces.Text),
                     textBox_AdditionalServices.Text
                 );
+                all.Add(pavilion);
             }
             else if (textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != ""
                && textBox_NumberEmployees.Text != "")
             {
                 Stall_Pavilion stall_Pavilion = new Stall_Pavilion(textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text,
                     Int32.Parse(textBox_NumberEmployees.Text));
+                all.Add(stall_Pavilion);
             }
             else if ((textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != ""))
             {
                 Stall stall = new Stall(textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text);
+                all.Add(stall);
             }
         }
 
