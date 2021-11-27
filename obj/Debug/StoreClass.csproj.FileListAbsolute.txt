@@ -1,0 +1,11 @@
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.csproj.SuggestedBindingRedirects.cache
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.Properties.Resources.resources
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.csproj.GenerateResource.cache
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\StoreClass\bin\Debug\StoreClass.exe.config
+C:\Users\user\source\repos\StoreClass\bin\Debug\StoreClass.exe
+C:\Users\user\source\repos\StoreClass\bin\Debug\StoreClass.pdb
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.exe
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.pdb
+C:\Users\user\source\repos\StoreClass\obj\Debug\StoreClass.Form1.resources
