@@ -13,9 +13,9 @@ namespace StoreClass
     public partial class Form1 : Form
     {
 
-        List<Store_Basic> all = new List<Store_Basic>();
+        List<BasicStore> allStore = new List<BasicStore>();
 
-        public abstract class Store_Basic
+        public abstract class BasicStore
         {
             protected string name, adress, workSchedule;
 
@@ -39,7 +39,7 @@ namespace StoreClass
 
         }
 
-        public class Stall : Store_Basic
+        public class Stall : BasicStore
         {
             public Stall() { }
             public Stall(string name, string adress, string workSchedule)
@@ -50,48 +50,39 @@ namespace StoreClass
             }
         }
 
-        public class Stall_Pavilion : Stall
+        public class StallPavilion : Stall
         {
-            public Stall_Pavilion() { }
-            public Stall_Pavilion(string name, string adress, string workSchedule, int numberEmployees) : base(name, adress, workSchedule)
+            public StallPavilion() { }
+            public StallPavilion(string name, string adress, string workSchedule, string delivery) : base(name, adress, workSchedule)
             {
-                this.numberEmployees = numberEmployees;
+                this.delivery = delivery;
             }
 
-            protected int numberEmployees;
+            protected string delivery;
 
-            public int NumberEmployees
+            public string Delivery
             {
-                get { return numberEmployees; }
-                set { numberEmployees = value; }
+                get { return delivery; }
+                set { delivery = value; }
             }
 
         }
 
-        public class Pavilion : Stall_Pavilion
+        public class Pavilion : StallPavilion
         {
-            public Pavilion(string name, string adress, string workSchedule, int numberEmployees, int numberParkingSpaces, string additionalServices) :
-                base(name, adress, workSchedule, numberEmployees)
+            public Pavilion(string name, string adress, string workSchedule, string delivery, int numberRooms) :
+                base(name, adress, workSchedule, delivery)
             {
-                this.numberParkingSpaces = numberParkingSpaces;
-                this.additionalServices = additionalServices;
+                this.numberRooms = numberRooms;
             }
 
-            private string additionalServices;
-            private int numberParkingSpaces;
+            private int numberRooms;
 
-            public string AdditionalServices
+            public int NumberRooms
             {
-                get { return additionalServices; }
-                set { additionalServices = value; }
+                get { return numberRooms; }
+                set { numberRooms = value; }
             }
-
-            public int NumberParkingSpaces
-            {
-                get { return numberParkingSpaces; }
-                set { numberParkingSpaces = value; }
-            }
-
         }
 
         public Form1()
@@ -101,48 +92,40 @@ namespace StoreClass
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            if (textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != ""
-               && textBox_NumberEmployees.Text != "" && textBox_NumberParkingSpaces.Text != "" && textBox_AdditionalServices.Text != "")
+            if (textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != "" && textBox_Delivery.Text != "" && textBox_NumberRooms.Text != "")
             {
-                Pavilion pavilion = new Pavilion(
-                    textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text,
-                    Int32.Parse(textBox_NumberEmployees.Text), Int32.Parse(textBox_NumberParkingSpaces.Text),
-                    textBox_AdditionalServices.Text
-                );
-                all.Add(pavilion);
+                Pavilion pavilion = new Pavilion( textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text, textBox_Delivery.Text, Int32.Parse(textBox_NumberRooms.Text) );
+                allStore.Add(pavilion);
             }
-            else if (textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != ""
-               && textBox_NumberEmployees.Text != "")
+            else if (textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != "" && textBox_Delivery.Text != "")
             {
-                Stall_Pavilion stall_Pavilion = new Stall_Pavilion(textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text,
-                    Int32.Parse(textBox_NumberEmployees.Text));
-                all.Add(stall_Pavilion);
+                StallPavilion stall_Pavilion = new StallPavilion(textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text, textBox_Delivery.Text);
+                allStore.Add(stall_Pavilion);
             }
             else if ((textBox_Name.Text != "" && textBox_Adress.Text != "" && textBox_WorkSchedule.Text != ""))
             {
                 Stall stall = new Stall(textBox_Name.Text, textBox_Adress.Text, textBox_WorkSchedule.Text);
-                all.Add(stall);
+                allStore.Add(stall);
             }
         }
 
         private void button_Find_Click(object sender, EventArgs e)
         {
-            foreach (var item in all)
+            foreach (var item in allStore)
             {
                 if (item.Adress == textBoxFindAdress.Text)
                 {
-                    textBox_Answer.Text = "Название: " + item.Name + Environment.NewLine;
-                    textBox_Answer.Text += "Адрес: " + item.Adress + Environment.NewLine;
-                    textBox_Answer.Text += "График работы: " + item.WorkSchedule + Environment.NewLine;
-                    if (item.GetType() == typeof(Stall_Pavilion))
+                    textBox_Answer.Text = "Название - " + item.Name + Environment.NewLine;
+                    textBox_Answer.Text += "Адрес - " + item.Adress + Environment.NewLine;
+                    textBox_Answer.Text += "График работы - " + item.WorkSchedule + Environment.NewLine;
+                    if (item.GetType() == typeof(StallPavilion))
                     {
-                        textBox_Answer.Text += "Количество работников: " + ((Stall_Pavilion)item).NumberEmployees + Environment.NewLine;
+                        textBox_Answer.Text += "Доставка - " + ((StallPavilion)item).Delivery + Environment.NewLine;
                     }
                     if (item.GetType() == typeof(Pavilion))
                     {
-                        textBox_Answer.Text += "Количество работников: " + ((Pavilion)item).NumberEmployees + Environment.NewLine;
-                        textBox_Answer.Text += "Количество парковочных мест: " + ((Pavilion)item).NumberParkingSpaces + Environment.NewLine;
-                        textBox_Answer.Text += "Дополнительные услуги: " + ((Pavilion)item).AdditionalServices + Environment.NewLine;
+                        textBox_Answer.Text += "Доставка - " + ((Pavilion)item).Delivery + Environment.NewLine;
+                        textBox_Answer.Text += "Количество комнат - " + ((Pavilion)item).NumberRooms + Environment.NewLine;
 
                     }
                 }
